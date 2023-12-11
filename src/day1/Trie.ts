@@ -45,28 +45,27 @@ export default class Trie {
 
     find(partial: string): string[] {
         let curr = this.head;
+        const words: string[] = [];
 
         for (let c of partial) {
             if (curr.children.has(c)) {
                 curr = curr.children.get(c) as Node;
             } else {
-                return [];
+                return words;
             }
         }
 
-        return this.buildSuggestions(curr, partial);
+        this.buildSuggestions(curr, partial, words);
+        return words;
     }
 
-    private buildSuggestions(node: Node, prefix: string): string[] {
-        let words: string[] = [];
-
+    private buildSuggestions(node: Node, prefix: string, words: string[]): void {
         for (let [c, n] of node.children) {
-            words = words.concat(this.buildSuggestions(n, prefix.concat(c)));
+            this.buildSuggestions(n, prefix.concat(c), words);
         }
 
         if (node.isWord) {
             words.push(prefix);
         }
-        return words;
     }
 }
