@@ -29,9 +29,9 @@ export default class Map<T extends (string | number), V> {
     private length: number;
     
 
-    constructor() {
+    constructor(capacity: number = 3) {
         this.data = [];
-        this.capacity = 3;
+        this.capacity = capacity;
         this.length = 0;
         for (let i = 0; i < this.capacity; i++) {
             this.data[i] = [];
@@ -52,7 +52,7 @@ export default class Map<T extends (string | number), V> {
             return undefined;
         }
 
-        if (pairs.length === 1) {
+        if (pairs.length === 1 && pairs[0].key === key) {
             return pairs[0].value;
         }
 
