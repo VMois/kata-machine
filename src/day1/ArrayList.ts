@@ -31,7 +31,6 @@ export default class ArrayList<T> {
 
         this.length++;
         this.array[this.length - 1] = item;
-        console.log(this.array);
     }
 
     private resize(): void {
